@@ -3,7 +3,11 @@
 // applies promo codes, and submits orders/payments to the API.
 // Supports rating and reviewing dishes the logged-in customer has ordered.
 
-const API_BASE = "http://127.0.0.1:8000";
+// Same server as the page when hosted; falls back to the local API when the
+// HTML file is opened straight from disk.
+const API_BASE = window.location.protocol.startsWith("http")
+  ? window.location.origin
+  : "http://127.0.0.1:8000";
 
 let menuItems = [];
 let orderItems = [];

@@ -1,0 +1,16 @@
+# Render Blueprint: one free web service that serves the API and the frontend.
+# The database is a SQLite file that is re-seeded on every boot, so the public
+# demo always returns to clean demo data after a restart or idle spin-down.
+services:
+  - type: web
+    name: restaurant-order-system
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /docs
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: SEED_ON_STARTUP
+        value: "true"

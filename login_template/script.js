@@ -2,7 +2,11 @@
 // Creates customer accounts, logs customers in, and stores the active customer
 // in localStorage so the menu page can connect orders to a customer.
 
-const API_URL = "http://127.0.0.1:8000";
+// Same server as the page when hosted; falls back to the local API when the
+// HTML file is opened straight from disk.
+const API_URL = window.location.protocol.startsWith("http")
+  ? window.location.origin
+  : "http://127.0.0.1:8000";
 
 // If a customer was already saved in the browser, keep them logged in.
 const savedUser = JSON.parse(localStorage.getItem("customer"));

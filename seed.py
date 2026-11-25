@@ -7,10 +7,11 @@ has data available for Swagger testing and the frontend demo.
 """
 
 import hashlib
-from datetime import datetime
+from datetime import datetime, timedelta
 from sqlalchemy import text
 
 from api.dependencies.database import SessionLocal, engine
+from api.models import model_loader
 from api.models.customer import Customer
 from api.models.orders import Order
 from api.models.payment_info import PaymentInfo
@@ -38,6 +39,7 @@ def migrate_schema():
 
 def seed_database():
     """Reset and populate the database with demo data."""
+    model_loader.index()  # create tables on a fresh database
     migrate_schema()
     db = SessionLocal()
 
@@ -140,12 +142,12 @@ def seed_database():
             Promotion(
                 promo_code="SAVE10",
                 discount_percent=10,
-                expiration_date=datetime.fromisoformat("2026-12-31T23:59:59"),
+                expiration_date=datetime.now() + timedelta(days=365),
             ),
             Promotion(
                 promo_code="LUNCH5",
                 discount_percent=5,
-                expiration_date=datetime.fromisoformat("2026-06-30T23:59:59"),
+                expiration_date=datetime.now() + timedelta(days=60),
             ),
         ]
         db.add_all(promotions)

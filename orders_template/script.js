@@ -1,4 +1,8 @@
-const API_URL = "http://127.0.0.1:8000";
+// Same server as the page when hosted; falls back to the local API when the
+// HTML file is opened straight from disk.
+const API_URL = window.location.protocol.startsWith("http")
+  ? window.location.origin
+  : "http://127.0.0.1:8000";
 
 /**
  * Toggles the display of an order information panel.

@@ -161,5 +161,5 @@ cython_debug/
 
 .pytest_cache
 
-#SQL DB Config - no pw sharing
-api/dependencies/config.py
+# Local SQLite demo database (config.py reads settings from env vars, so it is committed)
+restaurant.db
